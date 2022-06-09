@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="layout :: layout(~{::title}, ~{::section})" >
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Portal</title>
+</head>
+<body>
+<section>
+    <h2 style="color:green">Welcome to Exam Portal</h2>
+    Welcome <span sec:authentication="principal.username"> </span> User
+</section>
+</body>
+
+</html>

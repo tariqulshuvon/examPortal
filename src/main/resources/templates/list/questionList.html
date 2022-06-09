@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+</head>
+<body>
+
+<section>
+    <h3>Questions</h3>
+
+    <div class="float-end">
+        <a href="/question/addNewQuestion" type="button" class="btn btn-primary btn-lg">Add New Question</a>
+    </div>
+
+    <br><br>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Exam Name</th>
+            <th>Question</th>
+            <th>Mark</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${questionList.empty}">
+            <td colspan="2">No Medicine Available</td>
+        </tr>
+        <tr th:each="med : ${questionList}">
+            <td><span th:text="${med.exam?.examName}">Exam Name</span></td>
+            <td><span th:text="${med.question}">Question</span>
+
+
+
+                <a href="/option/">Answer This Question</a>
+
+
+            </td>
+            <td><span th:text="${med.mark}">Mark</span></td>
+
+            <td>
+                <a th:href="@{'/question/editQuestion/' + ${med.id}}">Edit</a>
+            </td>
+
+            <td>
+                <a th:href="@{'/question/deleteQuestion/' + ${med.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

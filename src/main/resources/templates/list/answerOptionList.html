@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer Option List</title>
+</head>
+<body>
+
+<section>
+    <h3>Answer Option</h3>
+
+    <div class="float-end">
+        <a href="/option/addNewAnswerOption" type="button" class="btn btn-primary btn-lg">Add New Answer Option</a>
+    </div>
+
+    <br><br>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Question</th>
+            <th>Option</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${answerOptionList.empty}">
+            <td colspan="2">No Option Available</td>
+        </tr>
+        <tr th:each="med : ${answerOptionList}">
+            <td><span th:text="${med.question?.question}">Question</span></td>
+            <td><span th:text="${med.option}">Option</span></td>
+            <td>
+                <a th:href="@{'/option/editAnswerOption/' + ${med.id}}">Edit</a>
+            </td>
+
+            <td>
+                <a th:href="@{'/option/deleteAnswerOption/' + ${med.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

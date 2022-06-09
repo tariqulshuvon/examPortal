@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam List</title>
+</head>
+<body>
+
+<section>
+    <h3>Exam List</h3>
+
+    <div class="float-end">
+        <a href="/exam/addNewExam" type="button" class="btn btn-primary btn-lg">Add New Exam</a>
+    </div>
+
+    <br><br>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Exam Name</th>
+
+            <th>Total Questions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${examList.empty}">
+            <td colspan="2">No Exam Available</td>
+        </tr>
+        <tr th:each="cat : ${examList}">
+            <td><span th:text="${cat.examName}">Exam Name</span></td>
+            <td><span th:text="${cat.questionCount}">Total Question</span></td>
+            <td>
+                <a th:href="@{'/exam/editExam/' + ${cat.id}}">Edit</a>
+            </td>
+
+            <td>
+                <a th:href="@{'/exam/deleteExam/' + ${cat.id}}">Delete Exam</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

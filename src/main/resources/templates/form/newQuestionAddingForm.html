@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Question</title>
+</head>
+<body>
+
+<section>
+    <h3>Add New Question</h3>
+
+    <form action="#" th:action="@{/question}" method="post" th:object="${question}">
+        <input type="hidden" th:field="*{id}"/>
+
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Exam</label>
+            <select class="form-select" th:field="*{examId}" id="exam">
+                <option th:each="cat : ${examList}" th:value="${cat.id}" th:text="${cat.examName}"></option>
+            </select>
+            <ul>
+                <li th:each="err : ${#fields.errors('examId')}" th:text="${err}" class="error"></li>
+            </ul>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">New Question</label>
+            <input type="text" th:field="*{question}" class="form-control" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+
+        </div>
+
+        <div class="mb-3">
+            <label for="mark" class="form-label">Mark</label>
+            <input type="number" th:field="*{mark}" class="form-control" id="mark"
+                   aria-describedby="emailHelp">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</section>
+
+</body>
+</html>
