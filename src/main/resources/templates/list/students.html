@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      th:replace="layout :: layout(~{::title}, ~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>Student List</title>
+</head>
+<body>
+
+<section>
+  <h3>Student List</h3>
+
+  <br><br>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Username</th>
+
+      <th>Role</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${students.empty}">
+      <td colspan="2">No Student Available</td>
+    </tr>
+    <tr th:each="user : ${students}">
+
+      <td><span th:text="${user.username}">Username</span></td>
+      <td><span th:text="${#strings.listJoin(user.roles.![name], ', ')}">Role</span></td>
+
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>

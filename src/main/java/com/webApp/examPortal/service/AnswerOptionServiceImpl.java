@@ -16,8 +16,8 @@ public class AnswerOptionServiceImpl  implements AnswerOptionService{
     AnswerOptionRepository answerOptionRepository;
 
     @Override
-    public List<AnswerOption> findAll() {
-        return answerOptionRepository.findAll();
+    public List<AnswerOption> findAll(Long question_id) {
+        return answerOptionRepository.findAllByQuestion_id(question_id);
     }
 
     @Override

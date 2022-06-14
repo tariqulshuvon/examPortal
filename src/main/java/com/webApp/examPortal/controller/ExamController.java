@@ -34,7 +34,7 @@ public class ExamController {
                                 .build())
                 .collect(Collectors.toList());
         model.addAttribute("examList", examList);
-        return "list/examList";
+        return "list/exam";
     }
 
     @GetMapping("/addNewExam")

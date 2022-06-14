@@ -29,9 +29,9 @@ public class QuestionController {
     private ExamService examService;
 
 
-    @GetMapping
-    public String showQuestionList(Model model) {
-        List<Question> questionList = questionService.findAll();
+    @GetMapping("/{examId}")
+    public String showQuestionList(@PathVariable(name = "examId") Long examId, Model model) {
+        List<Question> questionList = questionService.findAll(examId);
         model.addAttribute("questionList", questionList);
         return "list/questionList";
     }

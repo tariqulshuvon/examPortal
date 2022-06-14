@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       th:replace="layout :: layout(~{::title}, ~{::section})">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +12,7 @@
 <section>
     <h3>Exam List</h3>
 
-    <div class="float-end">
+    <div class="float-end" sec:authorize="hasAuthority('TEACHER')">
         <a href="/exam/addNewExam" type="button" class="btn btn-primary btn-lg">Add New Exam</a>
     </div>
 
@@ -31,13 +32,13 @@
             <td colspan="2">No Exam Available</td>
         </tr>
         <tr th:each="cat : ${examList}">
-            <td><span th:text="${cat.examName}">Exam Name</span></td>
+            <td><a th:href="${'/question/' + cat.id}" th:text="${cat.examName}">Exam Name</a></td>
             <td><span th:text="${cat.questionCount}">Total Question</span></td>
-            <td>
+            <td sec:authorize="hasAuthority('TEACHER')">
                 <a th:href="@{'/exam/editExam/' + ${cat.id}}">Edit</a>
             </td>
 
-            <td>
+            <td sec:authorize="hasAuthority('TEACHER')">
                 <a th:href="@{'/exam/deleteExam/' + ${cat.id}}">Delete Exam</a>
             </td>
         </tr>

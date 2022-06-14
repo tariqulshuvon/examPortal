@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <tr th:if="${questionList.empty}">
-            <td colspan="2">No Medicine Available</td>
+            <td colspan="2">No Question Available</td>
         </tr>
         <tr th:each="med : ${questionList}">
             <td><span th:text="${med.exam?.examName}">Exam Name</span></td>
@@ -35,7 +35,7 @@
 
 
 
-                <a href="/option/">Answer This Question</a>
+                <a th:href="${'/option/' + med.id}">Answer This Question</a>
 
 
             </td>

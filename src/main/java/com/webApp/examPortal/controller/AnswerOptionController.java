@@ -29,9 +29,9 @@ public class AnswerOptionController {
     private AnswerOptionService answerOptionService;
 
 
-    @GetMapping
-    public String showOptionList(Model model) {
-        List<AnswerOption> answerOptionList = answerOptionService.findAll();
+    @GetMapping("/{question_id}")
+    public String showOptionList(@PathVariable(name = "question_id") Long question_id, Model model) {
+        List<AnswerOption> answerOptionList = answerOptionService.findAll(question_id);
         model.addAttribute("answerOptionList", answerOptionList);
         return "list/answerOptionList";
     }
@@ -39,7 +39,6 @@ public class AnswerOptionController {
     @GetMapping("/addNewAnswerOption")
     public String showAnswerOptionAddingForm(Model model) {
         model.addAttribute("option", AnswerOptionForm.builder().build());
-        model.addAttribute("questionList", questionService.findAll());
         return "form/newAnswerOptionAddingForm";
     }
 
@@ -47,7 +46,7 @@ public class AnswerOptionController {
     @PostMapping
     public String saveQuestion(@Valid @ModelAttribute("option") AnswerOptionForm form, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
-            model.addAttribute("answerOptionList", answerOptionService.findAll());
+            model.addAttribute("answerOptionList", questionService.findAll());
             return "form/newAnswerOptionAddingForm";
         }
 
@@ -72,7 +71,7 @@ public class AnswerOptionController {
                     .option(qid.getOption())
                     .build();
             model.addAttribute("option", form);
-            model.addAttribute("questionList", questionService.findAll());
+            model.addAttribute("question", questionService.findAll());
         });
         return "form/newAnswerOptionAddingForm";
 

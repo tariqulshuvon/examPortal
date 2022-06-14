@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      th:replace="layout :: layout(~{::title}, ~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Teachers</title>
+</head>
+<body>
+<section>
+    <h3>Teachers</h3>
+
+    <div class="float-end">
+        <a href="/teachers/new" type="button" class="btn btn-primary btn-lg">Add New Teacher</a>
+    </div>
+
+    <br><br>
+
+    <table class="table table-bordered" style="background-color:white">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th sec:authorize="hasAuthority('TEACHER')">Password</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${teachers.empty}">
+            <td colspan="2">No Teacher Available</td>
+        </tr>
+        <tr th:each="user : ${teachers}">
+            <td><span th:text="${user.username}">Username</span></td>
+            <td sec:authorize="hasAuthority('TEACHER')"><span th:text="${user.password}">Password</span></td>
+
+            <td><span th:text="${#strings.listJoin(user.roles.![name], ', ')}">Role</span></td>
+
+            <td sec:authorize="hasAuthority('TEACHER')">
+                <a th:href="@{'/teachers/edit/' + ${user.id}}">Edit</a>
+            </td>
+
+            <td sec:authorize="hasAuthority('TEACHER')">
+                <a th:href="@{'/teachers/delete/' + ${user.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
